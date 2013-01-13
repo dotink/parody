@@ -93,9 +93,11 @@
 				self::make($class);
 			}
 
-			$class = self::qualify($class);
+			$class      = self::qualify($class);
+			$jest       = new $class();
+			$jest->mime = new self($jest);
 
-			return new self(new $class());
+			return $jest->mime;
 		}
 
 
@@ -261,10 +263,6 @@
 		 */
 		public function give($value = NULL)
 		{
-			if (is_callable($value)) {
-				$value = call_user_func($value);
-			}
-
 			if ($this->openMethod) {
 				$this->jest->methods[$this->openMethod][] = [
 					'expectation' => $this->jest->expectation,
@@ -272,20 +270,16 @@
 				];
 
 				//
-				// Reset our open method an expectation
+				// Reset our expectation array and our openMethod
 				//
 
-				$this->openMethod  = FALSE;
+				$this->openMethod        = FALSE;
 				$this->jest->expectation = array();
 
 			} elseif ($this->openProperty) {
 				$this->jest->properties[$this->openProperty] = $value;
 
-				//
-				// Reset our open property
-				//
-
-				$this->openProperty  = FALSE;
+				$this->openProperty = FALSE;
 
 			} else {
 				throw new \Exception(sprintf(
