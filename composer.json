@@ -1,0 +1,19 @@
+{
+	"name": "dotink/parody",
+	"description": "A simple PHP testing library for defining and crafting mock classes and objects.",
+	"type": "library",
+	"keywords": ["testing","mock"],
+	"license": "AGPL-3.0",
+	"authors": [
+		{
+			"name": "Matthew J. Sahagian",
+			"email": "gent@dotink.org"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0"
+	},
+	"autoload": {
+		"classmap": [""]
+	}
+}
