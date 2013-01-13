@@ -40,7 +40,9 @@
 		/**
 		 *
 		 */
-		protected $properties   = array();
+		protected $properties  = array();
+
+		protected $mime = NULL;
 
 
 
@@ -74,15 +76,17 @@
 			if (isset($this->methods[$method])) {
 				foreach ($this->methods[$method] as $jest) {
 					if ($args == $jest['expectation']) {
-						return $jest['value'];
+						return ($jest['value'] instanceof \Closure)
+							? $jest['value']($this->mime)
+							: $jest['value'];
 					}
 				}
-			} else {
-				throw new \Exception(sprintf(
-					'The method %s was never mimicked',
-					$method
-				));
 			}
+
+			throw new \Exception(sprintf(
+				'The method %s was never mimicked with the provide expectations',
+				$method
+			));
 		}
 
 
