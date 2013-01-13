@@ -2,7 +2,7 @@
 
 Parody is an extremely simple library that can be used to mimic classes and objects as well as provide working results for method calls (both object and static), getting properties, instantiating objects, etc.  It uses sequential method chaining to make defining class structures and operation extremely quick.
 
-This is most useful for testing.
+This is most useful for testing.  You can see an example of it being used in inKWell 2.0 with Dotink's Lab framework [here](https://github.com/dotink/inKWellToo/blob/master/external/testing/tests/Core.php)
 
 ## Including it in a Project
 
