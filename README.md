@@ -7,16 +7,18 @@ This is most useful for testing.  You can see an example of it being used in inK
 ## Including it in a Project
 
 ```php
-include 'Jest.php';
-include 'Mime.php';
+include '<path/to/>Load.php';
 ```
 
-Obviously you will have to potentially change the name/location of the files, but the key point above is that `Jest` should be included before `Mime`.  Jest and Mime exist in the `Dotink\Parody` namespace, so if you're using namespaces in the surrounding context you may wish to alias/import.
+The `Load.php` wrapper will load all the requirements of Parody in the appropriate order.  Additionally, you will most likely want to add an alias in your current namespace if it differs.
 
 ```php
 namespace Vendor\Project {
 
 	use Dotink\Parody;
+
+	<code using parody>
+	
 }
 ```
 
