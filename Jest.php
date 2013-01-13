@@ -28,12 +28,6 @@
 		/**
 		 *
 		 */
-		protected $expectation  = array();
-
-
-		/**
-		 *
-		 */
 		protected $methods      = array();
 
 
@@ -42,10 +36,23 @@
 		 */
 		protected $properties  = array();
 
+
+		/**
+		 *
+		 */
 		protected $mime = NULL;
 
 
+		/**
+		 *
+		 */
+		static public function __callStatic($method, $args)
+		{
+			$called_class = get_called_class();
+			$object       = self::$objects[$called_class];
 
+			return call_user_func_array([$object, $method], $args);
+		}
 
 
 		/**
@@ -87,18 +94,6 @@
 				'The method %s was never mimicked with the provide expectations',
 				$method
 			));
-		}
-
-
-		/**
-		 *
-		 */
-		static public function __callStatic($method, $args)
-		{
-			$called_class = get_called_class();
-			$object       = self::$objects[$called_class];
-
-			return call_user_func_array([$object, $method], $args);
 		}
 
 

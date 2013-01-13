@@ -53,6 +53,15 @@
 
 
 		/**
+		 * The current expected arguments of the open Method
+		 *
+		 * @access private
+		 * @var array
+		 */
+		private $expectation  = array();
+
+
+		/**
 		 * A representation of a "fake" object which is manipulated
 		 *
 		 * @access private
@@ -232,7 +241,7 @@
 				));
 			}
 
-			$this->jest->expectation = func_get_args();
+			$this->expectation = func_get_args();
 
 			return $this;
 		}
@@ -265,7 +274,7 @@
 		{
 			if ($this->openMethod) {
 				$this->jest->methods[$this->openMethod][] = [
-					'expectation' => $this->jest->expectation,
+					'expectation' => $this->expectation,
 					'value'       => $value
 				];
 
@@ -273,8 +282,8 @@
 				// Reset our expectation array and our openMethod
 				//
 
-				$this->openMethod        = FALSE;
-				$this->jest->expectation = array();
+				$this->openMethod  = FALSE;
+				$this->expectation = array();
 
 			} elseif ($this->openProperty) {
 				$this->jest->properties[$this->openProperty] = $value;
