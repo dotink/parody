@@ -18,7 +18,7 @@ namespace Vendor\Project {
 	use Dotink\Parody;
 
 	<code using parody>
-	
+
 }
 ```
 
@@ -86,33 +86,33 @@ Parody\Mime::create('Vendor\Project\Class')
 	-> onGet('booleanProperty') -> give(TRUE);
 ```
 
-The `Mime::create()` method creates an internal object instance of the class requested.  This class, regardless of how many parent classes it has is inevitably a child of `Jest`.  `Jest` objects are very simple objects which are manipulated by `Mime`s to make parody possible.
+The `Mime::create()` method creates an internal object instance of the class requested.  This class, regardless of how many parent classes it has is inevitably a child of `Quip`.  `Quip` objects are very simple objects which are manipulated by `Mime`s to make parody possible.
 
-### Resolving the Jest
+### Resolving the Quip
 
-You can get the `Jest` object by using the `resolve()` method.
+You can get the `Quip` object by using the `resolve()` method.
 
 ```php
-$jest = Parody\Mime::create('Vendor\Project\Class')
+$quip = Parody\Mime::create('Vendor\Project\Class')
 	-> onCall('method') -> give('response')
 	-> onGet('booleanProperty') -> give(TRUE)
 	-> resolve()
 ```
 
-You can then use the `Jest` object to call the methods or get the properties you established.
+You can then use the `Quip` object to call the methods or get the properties you established.
 
 ```php
-if ($jest->booleanProperty) {
-	echo $jest->method();    // This would print 'response'
+if ($quip->booleanProperty) {
+	echo $quip->method();    // This would print 'response'
 }
 ```
 
 ### Expecting Arguments
 
-`Jest`s should not be taken the wrong way, but inevitably you will have to deal with arguments and vary your responses depending on what those are.  It's possible to `expect()` them.
+`Quip`s should not be taken the wrong way, but inevitably you will have to deal with arguments and vary your responses depending on what those are.  It's possible to `expect()` them.
 
 ```php
-$jest = Parody\Mime::create('Vendor\Class\Project')
+$quip = Parody\Mime::create('Vendor\Class\Project')
 	-> onCall('method') -> expect('argument one') -> give('response one')
 	-> onCall('method') -> expect('argument two') -> give('response two')
 	-> resolve();
@@ -121,8 +121,8 @@ $jest = Parody\Mime::create('Vendor\Class\Project')
 Now we're ready for some back and fourth!
 
 ```php
-if ($jest->method('argument one') == 'response one') {
-	echo 'I really wanted ' . $jest->method('argument two');
+if ($quip->method('argument one') == 'response one') {
+	echo 'I really wanted ' . $quip->method('argument two');
 }
 ```
 The above will output the string 'I really wanted argument two'.
@@ -132,7 +132,7 @@ The above will output the string 'I really wanted argument two'.
 It doesn't matter how a method is called:
 
 ```php
-if (Vendor\Class\Project::method('argument one') == $jest->method('argument one')) {
+if (Vendor\Class\Project::method('argument one') == $quip->method('argument one')) {
 	echo 'So the parody is useful for static dependencies too.';
 }
 ```
@@ -160,4 +160,4 @@ Or in other words, '... and still get our results'.
 
 ## Conclusion
 
-`Mime`s use `Jest`s to conduct `Parody`.
+`Mime`s use `Quip`s to conduct `Parody` (and apparently irony as well).

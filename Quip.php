@@ -1,8 +1,8 @@
 <?php namespace Dotink\Parody {
 
 	/**
-	 * Mime provides a simple API for defining and crafting mock classes and objects, called
-	 * "Jests".
+	 * Quip is the replacement for your actual classes.  It will respond to methods and actions
+	 * configured by Mime.  Quips are verbal, Mimes are not.
 	 *
 	 * @copyright Copyright (c) 2012 - 2013, Matthew J. Sahagian
 	 * @author Matthew J. Sahagian [mjs] <gent@dotink.org>
@@ -11,7 +11,7 @@
 	 *
 	 * @package Parody
 	 */
-	class Jest
+	class Quip
 	{
 		/**
 		 *
@@ -64,11 +64,11 @@
 			$args  = func_get_args();
 
 			if (isset(self::$factories[$class])) {
-				foreach (self::$factories[$class] as $i => $jest) {
-					if ($args == $jest['expectation']) {
+				foreach (self::$factories[$class] as $i => $quip) {
+					if ($args == $quip['expectation']) {
 						unset(self::$factories[$class][$i]);
 
-						return call_user_func($jest['factory'], new Mime($this));
+						return call_user_func($quip['factory'], new Mime($this));
 					}
 				}
 			}
@@ -81,11 +81,11 @@
 		public function __call($method, $args)
 		{
 			if (isset($this->methods[$method])) {
-				foreach ($this->methods[$method] as $jest) {
-					if ($args == $jest['expectation']) {
-						return ($jest['value'] instanceof \Closure)
-							? $jest['value']($this->mime)
-							: $jest['value'];
+				foreach ($this->methods[$method] as $quip) {
+					if ($args == $quip['expectation']) {
+						return ($quip['value'] instanceof \Closure)
+							? $quip['value']($this->mime)
+							: $quip['value'];
 					}
 				}
 			}

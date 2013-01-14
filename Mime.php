@@ -1,8 +1,7 @@
 <?php namespace Dotink\Parody {
 
 	/**
-	 * Mime provides a simple API for defining and crafting mock classes and objects, called
-	 * "Jests".
+	 * Mime provides a simple API for defining and crafting mock classes and objects.
 	 *
 	 * @copyright Copyright (c) 2012 - 2013, Matthew J. Sahagian
 	 * @author Matthew J. Sahagian [mjs] <gent@dotink.org>
@@ -11,7 +10,7 @@
 	 *
 	 * @package Parody
 	 */
-	class Mime extends Jest
+	class Mime extends Quip
 	{
 		/**
 		 * Parent class relationships for defined classes
@@ -44,7 +43,7 @@
 
 
 		/**
-		 * The class for the jest that mime is working on
+		 * The class of the quip that mime is working on
 		 *
 		 * @access private
 		 * @var string
@@ -62,12 +61,12 @@
 
 
 		/**
-		 * A representation of a "fake" object which is manipulated
+		 * A representation of a "pretend" object which is manipulated
 		 *
 		 * @access private
-		 * @var Jest
+		 * @var Quip
 		 */
-		private $jest = NULL;
+		private $quip = NULL;
 
 
 		/**
@@ -89,7 +88,7 @@
 
 
 		/**
-		 * Create a new jest (mock) object of a particular class to work on.
+		 * Create a new quip (mocked object) of a particular class to work on.
 		 *
 		 * @static
 		 * @access public
@@ -103,15 +102,15 @@
 			}
 
 			$class      = self::qualify($class);
-			$jest       = new $class();
-			$jest->mime = new self($jest);
+			$quip       = new $class();
+			$quip->mime = new self($quip);
 
-			return $jest->mime;
+			return $quip->mime;
 		}
 
 
 		/**
-		 * Define a new jest (mock) class to work on.
+		 * Define a new quip (mocked class) to work on.
 		 *
 		 * @static
 		 * @access public
@@ -141,7 +140,7 @@
 			$class  = ltrim($class, '\\');
 			$parent = isset(self::$parents[$class])
 				? self::$parents[$class]
-				: self::qualify(__NAMESPACE__ . '\Jest');
+				: self::qualify(__NAMESPACE__ . '\Quip');
 
 			if ($parent && !class_exists($parent)) {
 				self::make($parent);
@@ -199,10 +198,10 @@
 
 
 		/**
-		 * Create a new mime.  If the Mime is given an object, it will verify it's a jest.
+		 * Create a new Mime.
 		 *
 		 * @access public
-		 * @param string|object $target
+		 * @param string|object $target A class name or quip to work with.
 		 * @return void
 		 */
 		public function __construct($target = NULL)
@@ -210,13 +209,13 @@
 			if (is_object($target)) {
 				if (!is_subclass_of($target, get_parent_class(__CLASS__))) {
 					throw new \Exception(sprintf(
-						'Mime cannot work with non-Jest object of class %s',
+						'Mime cannot work with non-Quip object of class %s',
 						get_class($target)
 					));
 				}
 
 				$this->class                 = get_class($target);
-				$this->jest                  = $target;
+				$this->quip                  = $target;
 				self::$objects[$this->class] = $target;
 
 			} else {
@@ -273,7 +272,7 @@
 		public function give($value = NULL)
 		{
 			if ($this->openMethod) {
-				$this->jest->methods[$this->openMethod][] = [
+				$this->quip->methods[$this->openMethod][] = [
 					'expectation' => $this->expectation,
 					'value'       => $value
 				];
@@ -286,7 +285,7 @@
 				$this->expectation = array();
 
 			} elseif ($this->openProperty) {
-				$this->jest->properties[$this->openProperty] = $value;
+				$this->quip->properties[$this->openProperty] = $value;
 
 				$this->openProperty = FALSE;
 
@@ -332,7 +331,7 @@
 
 
 		/**
-		 * Opens a method on the jest object
+		 * Opens a method on the quip object
 		 *
 		 * @access public
 		 * @param string $method The name of the method to open
@@ -340,7 +339,7 @@
 		 */
 		public function onCall($method)
 		{
-			if ($this->jest && ($this->openMethod || $this->openProperty)) {
+			if ($this->quip && ($this->openMethod || $this->openProperty)) {
 				throw new \Exception(sprintf(
 					'Cannot open method %s without first give()-ing a return for %s',
 					$method,
@@ -349,11 +348,11 @@
 			}
 
 			//
-			// Allocate space for the method in the jest object and open
+			// Allocate space for the method in the quip object and open
 			// a method on it.
 			//
 
-			$this->jest->methods[$method] = array();
+			$this->quip->methods[$method] = array();
 			$this->openMethod             = $method;
 
 			return $this;
@@ -361,7 +360,7 @@
 
 
 		/**
-		 * Opens a property on the jest object
+		 * Opens a property on the quip object
 		 *
 		 * @access public
 		 * @param string $property The name of the property to open
@@ -369,7 +368,7 @@
 		 */
 		public function onGet($property)
 		{
-			if ($this->jest && ($this->openMethod || $this->openProperty)) {
+			if ($this->quip && ($this->openMethod || $this->openProperty)) {
 				throw new \Exception(sprintf(
 					'Cannot mimick property %s without first give()-ing a return for %s',
 					$property,
@@ -394,7 +393,7 @@
 		 * @access public
 		 * @param mixed An optional expected constructor parameter
 		 * @param mixed ...
-		 * @param Closure A closure which will be passed the newly instantiated jest to work with
+		 * @param Closure A closure which will be passed the newly instantiated quip to work with
 		 * @return Mime The mime for method chaining
 		 */
 		public function onNew()
@@ -416,14 +415,14 @@
 
 
 		/**
-		 * Gets the current working jest object (for injection)
+		 * Gets the current working quip object (for injection)
 		 *
 		 * @access public
-		 * @return Jest The jest object, whose class will actually be whatever class you're mocking
+		 * @return Quip The quip object, whose class will actually be whatever class you're mocking
 		 */
 		public function resolve()
 		{
-			return $this->jest;
+			return $this->quip;
 		}
 
 
