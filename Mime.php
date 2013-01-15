@@ -12,6 +12,29 @@
 	 */
 	class Mime extends Quip
 	{
+		const INTERFACE_EXTENSIONS_DIR = 'interfaces';
+
+
+		/**
+		 * The list of extension methods and their related callbacks
+		 *
+		 * @static
+		 * @access private
+		 * @var array
+		 */
+		static private $extensions = array();
+
+
+		/**
+		 * Interfaces for defined classes
+		 *
+		 * @static
+		 * @access private
+		 * @var array
+		 */
+		static private $interfaces = array();
+
+
 		/**
 		 * Parent class relationships for defined classes
 		 *
@@ -23,13 +46,13 @@
 
 
 		/**
-		 * Interfaces for defined classes
+		 * A registry of expanded classes, traits, or interfaces
 		 *
 		 * @static
 		 * @access private
 		 * @var array
 		 */
-		static private $interfaces = array();
+		static private $registry = array();
 
 
 		/**
@@ -103,9 +126,8 @@
 
 			$class      = self::qualify($class);
 			$quip       = new $class();
-			$quip->mime = new self($quip);
 
-			return $quip->mime;
+			return new self($quip);;
 		}
 
 
@@ -174,6 +196,10 @@
 
 						{
 
+						<?php foreach ($traits as $trait) { ?>
+							use <?= $trait ?>;
+						<?php } ?>
+
 						}
 					}
 				<?php return ob_get_clean();
@@ -214,15 +240,52 @@
 					));
 				}
 
-				$this->class                 = get_class($target);
-				$this->quip                  = $target;
-				self::$objects[$this->class] = $target;
+				$this->class      = get_class($target);
+				$this->quip       = $target;
+				$this->quip->mime = $this;
+
+				if (!isset(self::$objects[$this->class])) {
+					self::$objects[$this->class] = $target;
+				}
 
 			} else {
 				$this->class = $target;
 			}
 		}
 
+
+		/**
+		 * Handle missing calls which, in short, means we should be looking for an extension.
+		 *
+		 * @access public
+		 * @param string $method The method we tried to call
+		 * @param array $args The arguments we passed to it
+		 * @return Mime The mime for method chaining
+		 */
+		public function __call($method, $args)
+		{
+			if (!isset(self::$extensions[$method])) {
+ 				throw new \Exception(sprintf(
+ 					'Unknown extension %s',
+ 					$method
+ 				));
+			}
+
+			if (!(self::$extensions[$method] instanceof \Closure)) {
+				throw new \Exception(sprintf(
+					'Extension %s must be an instance of Closure',
+					$method
+				));
+			}
+
+			$extension = self::$extensions[$method];
+
+			foreach(call_user_func_array($extension, $args) as $property => $value) {
+				$this->quip->extended[$property] = $value;
+			}
+
+			return $this;
+		}
 
 		/**
 		 * Tell an open method what to expect
@@ -309,6 +372,32 @@
 		public function implementing($interface)
 		{
 			foreach (func_get_args() as $interface) {
+
+				$path = implode(DIRECTORY_SEPARATOR, [
+					__DIR__,
+					self::INTERFACE_EXTENSIONS_DIR,
+					str_replace('\\', DIRECTORY_SEPARATOR, $interface) . '.php'
+				]);
+
+				if (isset(self::$registry[$interface]) || file_exists($path)) {
+					if (!isset(self::$registry[$interface])) {
+						$existing_traits            = get_declared_traits();
+						$extension                  = include($path);
+						self::$extensions           = array_merge(self::$extensions, $extension);
+						self::$registry[$interface] = array_diff(
+							get_declared_traits(),
+							$existing_traits
+						);
+
+						return $this->implementing($interface);
+
+					} else {
+						foreach (self::$registry[$interface] as $trait) {
+							$this->using($trait);
+						}
+					}
+				}
+
 
 				//
 				// We want to create the interface if it doesn't exist yet.  We don't want to
