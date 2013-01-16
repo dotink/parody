@@ -124,8 +124,8 @@
 				self::make($class);
 			}
 
-			$class      = self::qualify($class);
-			$quip       = new $class();
+			$class = self::qualify($class);
+			$quip  = new $class();
 
 			return new self($quip);;
 		}
