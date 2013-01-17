@@ -120,7 +120,7 @@
 		 */
 		static public function create($class)
 		{
-			if (!class_exists($class)) {
+			if (!class_exists($class, FALSE)) {
 				self::make($class);
 			}
 
@@ -156,29 +156,69 @@
 		static private function make($class)
 		{
 			//
-			// We need to dequalify the class first
+			// Trim out our leading namespace separator to get a root relative full qualified
+			// class name.
 			//
 
-			$class  = ltrim($class, '\\');
-			$parent = isset(self::$parents[$class])
-				? self::$parents[$class]
-				: self::qualify(__NAMESPACE__ . '\Quip');
+			$fqcn = ltrim($class, '\\');
 
-			if ($parent && !class_exists($parent)) {
+			//
+			// Determine the appropriate parent
+			//
+
+			$parent = !isset(self::$parents[$fqcn])
+				? self::qualify(__NAMESPACE__ . '\Quip')
+				: self::$parents[$fqcn];
+
+			//
+			// Break out our namespace and class
+			//
+
+			$parts  = explode('\\', $fqcn);
+			$class  = array_pop($parts);
+			$ns     = implode('\\', $parts);
+
+			if (!class_exists($parent, FALSE)) {
 				self::make($parent);
+
+			} else {
+				eval(call_user_func(function() use ($ns, $class, $parent) {
+					ob_start() ?>
+						namespace <?= $ns ?>
+						{
+							class <?= $class ?>
+
+							<?php if ($parent) { ?>
+								extends <?= $parent ?>
+							<?php } ?>
+
+							{}
+						}
+					<?php return ob_get_clean();
+				}));
+
+				return;
 			}
 
-			$interfaces = isset(self::$interfaces[$class])
-				? self::$interfaces[$class]
+			//
+			// Collect interfaces
+			//
+
+			$interfaces = isset(self::$interfaces[$fqcn])
+				? self::$interfaces[$fqcn]
 				: array();
 
-			$traits = isset(self::$traits[$class])
-				? self::$traits[$class]
+			//
+			// Collect Trait
+			//
+
+			$traits = isset(self::$traits[$fqcn])
+				? self::$traits[$fqcn]
 				: array();
 
-			$ns_parts   = explode('\\', $class);
-			$class      = array_pop($ns_parts);
-			$ns         = implode('\\', $ns_parts);
+			//
+			// Create a class
+			//
 
 			eval(call_user_func(function() use ($ns, $class, $parent, $interfaces, $traits) {
 				ob_start() ?>
