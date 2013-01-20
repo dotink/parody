@@ -6,21 +6,129 @@
 
 Create a new quip (mocked object) of a particular class to work on.
 
+`static public function create()`
+
+
+##### Parameters
+
+<table>
+	<thead>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		
+		<tr>
+			<td>
+				$class
+			</td>
+			<td>
+				string
+			</td>
+			<td>
+				The class from which to build the object
+			</td>
+		</tr>
+		
+	</tbody>
+</table>
 
 ### define()
 
 Define a new quip (mocked class) to work on.
 
+`static public function define()`
+
+
+##### Parameters
+
+<table>
+	<thead>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		
+		<tr>
+			<td>
+				$class
+			</td>
+			<td>
+				string
+			</td>
+			<td>
+				The class to define
+			</td>
+		</tr>
+		
+	</tbody>
+</table>
 
 ### qualify()
 
 Qualifies a class for the global namespace by ensuring it has a \ in front.
 
+`static protected function qualify()`
+
+
+##### Parameters
+
+<table>
+	<thead>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		
+		<tr>
+			<td>
+				$class
+			</td>
+			<td>
+				string
+			</td>
+			<td>
+				The class to qualify
+			</td>
+		</tr>
+		
+	</tbody>
+</table>
 
 ### make()
 
 Literally makes (evals) a class.
 
+`static private function make()`
+
+
+##### Parameters
+
+<table>
+	<thead>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		
+		<tr>
+			<td>
+				$class
+			</td>
+			<td>
+				string
+			</td>
+			<td>
+				The class to make
+			</td>
+		</tr>
+		
+	</tbody>
+</table>
 
 
 
@@ -37,9 +145,9 @@ Handle missing calls which, in short, means we should be looking for an extensio
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
@@ -81,9 +189,9 @@ Create a new Mime.
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
@@ -101,11 +209,7 @@ Create a new Mime.
 		
 		<tr>
 			<td>
-			</td>
-			<td>
 				object
-			</td>
-			<td>
 			</td>
 		</tr>
 				
@@ -123,9 +227,9 @@ Tell an open method what to expect
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
@@ -160,9 +264,9 @@ exist.
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
@@ -192,9 +296,9 @@ Define a value to give for the open method or property
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
@@ -225,9 +329,9 @@ exist.
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
@@ -257,9 +361,9 @@ Opens a method on the quip object
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
@@ -289,9 +393,9 @@ Opens a property on the quip object
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
@@ -326,9 +430,9 @@ is run it is removed from the stack automatically.
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
@@ -388,9 +492,9 @@ Tell the class we're defining to use a given trait and if it doesn't exist, crea
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		

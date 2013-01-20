@@ -9,6 +9,45 @@ Handle missing static calls
 Static calls are always looked up on the most recently instantiated Quip, so if you
 need to mimick their functionality you should create a mime and add them first.
 
+`static public function __callStatic()`
+
+
+##### Parameters
+
+<table>
+	<thead>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		
+		<tr>
+			<td>
+				$method
+			</td>
+			<td>
+				string
+			</td>
+			<td>
+				The static method we are trying to call
+			</td>
+		</tr>
+			
+		<tr>
+			<td>
+				$args
+			</td>
+			<td>
+				array
+			</td>
+			<td>
+				The arguments that were passed to the method
+			</td>
+		</tr>
+		
+	</tbody>
+</table>
 
 
 
@@ -30,9 +69,9 @@ so that future behavior can be modified based on the call.
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
@@ -91,9 +130,9 @@ argument.
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
@@ -123,9 +162,9 @@ Handle checking whether or not properties are set
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
@@ -155,9 +194,9 @@ Handle setting properties
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
@@ -199,9 +238,9 @@ Handle unsetting a property
 
 <table>
 	<thead>
-		<td>Param</td>
-		<td>Type</td>
-		<td>Description</td>
+		<th>Param</th>
+		<th>Type</th>
+		<th>Description</th>
 	</thead>
 	<tbody>
 		
