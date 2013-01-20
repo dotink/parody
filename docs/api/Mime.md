@@ -17,13 +17,13 @@ Create a new quip (mocked object) of a particular class to work on.
 |-------------|-------------------------------------------------------------------------------------
 | Signature   | `static public function create($class)`
 
-#### Parameters
+##### Parameters
 
 | Type        | Name         | Description
 |-------------|--------------|----------------------------------------------------------------------
 | String      | $class       | The class to instantiate or object to modify (must extend Quip)
 
-#### Returns
+##### Returns
 
 | Type        | Descripton
 |-------------|-------------------------------------------------------------------------------------
@@ -37,13 +37,13 @@ Define a new quip (mocked class) to work on.
 |-------------|-------------------------------------------------------------------------------------
 | Signature   | `static public function define($class)`
 
-#### Parameters
+##### Parameters
 
 | Type        | Name         | Description
 |-------------|--------------|----------------------------------------------------------------------
 | String      | $class       | The class to define
 
-#### Returns
+##### Returns
 
 | Type        | Descripton
 |-------------|-------------------------------------------------------------------------------------
@@ -57,13 +57,13 @@ Literally makes (evals) a class.
 |-------------|-------------------------------------------------------------------------------------
 | Signature   | `static private function make($class)`
 
-#### Parameters
+##### Parameters
 
 | Type        | Name         | Description
 |-------------|--------------|----------------------------------------------------------------------
 | String      | $class       | The class to make
 
-#### Returns
+##### Returns
 
 | Type        | Descripton
 |-------------|-------------------------------------------------------------------------------------
