@@ -199,10 +199,10 @@ Create a new Mime.
 			<td>
 				string
 			</td>
-			<td rowspan="1">
+			<td rowspan="2">
 				$target
 			</td>
-			<td rowspan="1">
+			<td rowspan="2">
 				A class name or quip to work with.
 			</td>
 		</tr>
