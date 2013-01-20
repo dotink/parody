@@ -331,11 +331,11 @@
 		 * Tell an open method what to expect
 		 *
 		 * @access public
-		 * @param mixed The expected parameter for the mocked method
+		 * @param mixed $value The expected parameter value for the mocked method
 		 * @param ...
 		 * @return Mime The mime for method chaining
 		 */
-		public function expect()
+		public function expect($value)
 		{
 			if (!$this->openMethod) {
 				throw new \Exception(sprintf(

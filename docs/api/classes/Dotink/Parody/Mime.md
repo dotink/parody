@@ -127,13 +127,13 @@ Tell an open method what to expect
 		
 		<tr>
 			<td>
-				The
+				$value
 			</td>
 			<td>
 				mixed
 			</td>
 			<td>
-				expected parameter for the mocked method
+				The expected parameter value for the mocked method
 			</td>
 		</tr>
 			
