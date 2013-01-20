@@ -13,18 +13,18 @@ Create a new quip (mocked object) of a particular class to work on.
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$class
+				string
 			</td>
 			<td>
-				string
+				$class
 			</td>
 			<td>
 				The class from which to build the object
@@ -45,18 +45,18 @@ Define a new quip (mocked class) to work on.
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$class
+				string
 			</td>
 			<td>
-				string
+				$class
 			</td>
 			<td>
 				The class to define
@@ -77,18 +77,18 @@ Qualifies a class for the global namespace by ensuring it has a \ in front.
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$class
+				string
 			</td>
 			<td>
-				string
+				$class
 			</td>
 			<td>
 				The class to qualify
@@ -109,18 +109,18 @@ Literally makes (evals) a class.
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$class
+				string
 			</td>
 			<td>
-				string
+				$class
 			</td>
 			<td>
 				The class to make
@@ -145,18 +145,18 @@ Handle missing calls which, in short, means we should be looking for an extensio
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$method
+				string
 			</td>
 			<td>
-				string
+				$method
 			</td>
 			<td>
 				The method we tried to call
@@ -165,10 +165,10 @@ Handle missing calls which, in short, means we should be looking for an extensio
 			
 		<tr>
 			<td>
-				$args
+				array
 			</td>
 			<td>
-				array
+				$args
 			</td>
 			<td>
 				The arguments we passed to it
@@ -189,18 +189,18 @@ Create a new Mime.
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
-			<td rowspan="1">
-				$target
-			</td>
 			<td>
 				string
+			</td>
+			<td rowspan="1">
+				$target
 			</td>
 			<td rowspan="1">
 				A class name or quip to work with.
@@ -227,18 +227,18 @@ Tell an open method what to expect
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$value
+				mixed
 			</td>
 			<td>
-				mixed
+				$value
 			</td>
 			<td>
 				The expected parameter value for the mocked method
@@ -264,18 +264,18 @@ exist.
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$parent_class
+				string
 			</td>
 			<td>
-				string
+				$parent_class
 			</td>
 			<td>
 				The parent class to define
@@ -296,18 +296,18 @@ Define a value to give for the open method or property
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$value
+				mixed
 			</td>
 			<td>
-				mixed
+				$value
 			</td>
 			<td>
 				The value to return for the open method or property
@@ -329,18 +329,18 @@ exist.
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$interface
+				string
 			</td>
 			<td>
-				string
+				$interface
 			</td>
 			<td>
 				The interface to implement
@@ -361,18 +361,18 @@ Opens a method on the quip object
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$method
+				string
 			</td>
 			<td>
-				string
+				$method
 			</td>
 			<td>
 				The name of the method to open
@@ -393,18 +393,18 @@ Opens a property on the quip object
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$property
+				string
 			</td>
 			<td>
-				string
+				$property
 			</td>
 			<td>
 				The name of the property to open
@@ -430,18 +430,18 @@ is run it is removed from the stack automatically.
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				An
+				mixed
 			</td>
 			<td>
-				mixed
+				An
 			</td>
 			<td>
 				optional expected constructor parameter
@@ -450,10 +450,10 @@ is run it is removed from the stack automatically.
 			
 		<tr>
 			<td>
-				...
+				mixed
 			</td>
 			<td>
-				mixed
+				...
 			</td>
 			<td>
 				
@@ -462,10 +462,10 @@ is run it is removed from the stack automatically.
 			
 		<tr>
 			<td>
-				A
+				Closure
 			</td>
 			<td>
-				Closure
+				A
 			</td>
 			<td>
 				closure which will be passed the newly instantiated quip to work with
@@ -492,18 +492,18 @@ Tell the class we're defining to use a given trait and if it doesn't exist, crea
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$trait
+				string
 			</td>
 			<td>
-				string
+				$trait
 			</td>
 			<td>
 				The trait to use

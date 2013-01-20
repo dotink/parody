@@ -16,18 +16,18 @@ need to mimick their functionality you should create a mime and add them first.
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$method
+				string
 			</td>
 			<td>
-				string
+				$method
 			</td>
 			<td>
 				The static method we are trying to call
@@ -36,10 +36,10 @@ need to mimick their functionality you should create a mime and add them first.
 			
 		<tr>
 			<td>
-				$args
+				array
 			</td>
 			<td>
-				array
+				$args
 			</td>
 			<td>
 				The arguments that were passed to the method
@@ -69,18 +69,18 @@ so that future behavior can be modified based on the call.
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$method
+				string
 			</td>
 			<td>
-				string
+				$method
 			</td>
 			<td>
 				The method we are trying to call
@@ -89,10 +89,10 @@ so that future behavior can be modified based on the call.
 			
 		<tr>
 			<td>
-				$args
+				array
 			</td>
 			<td>
-				array
+				$args
 			</td>
 			<td>
 				The arguments that were passed to the method
@@ -130,18 +130,18 @@ argument.
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$property
+				string
 			</td>
 			<td>
-				string
+				$property
 			</td>
 			<td>
 				The property we are trying to get
@@ -162,18 +162,18 @@ Handle checking whether or not properties are set
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$property
+				string
 			</td>
 			<td>
-				string
+				$property
 			</td>
 			<td>
 				The property to check if it is set
@@ -194,18 +194,18 @@ Handle setting properties
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$property
+				string
 			</td>
 			<td>
-				string
+				$property
 			</td>
 			<td>
 				THe property to set
@@ -214,10 +214,10 @@ Handle setting properties
 			
 		<tr>
 			<td>
-				$value
+				mixed
 			</td>
 			<td>
-				mixed
+				$value
 			</td>
 			<td>
 				The value to set it to
@@ -238,18 +238,18 @@ Handle unsetting a property
 
 <table>
 	<thead>
-		<th>Param</th>
 		<th>Type</th>
+		<th>Param</th>
 		<th>Description</th>
 	</thead>
 	<tbody>
 		
 		<tr>
 			<td>
-				$property
+				string
 			</td>
 			<td>
-				string
+				$property
 			</td>
 			<td>
 				The property to check if it is set
