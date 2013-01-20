@@ -24,10 +24,10 @@ need to mimick their functionality you should create a mime and add them first.
 		
 		<tr>
 			<td>
-				string
+				$method
 			</td>
 			<td>
-				$method
+				string
 			</td>
 			<td>
 				The static method we are trying to call
@@ -36,10 +36,10 @@ need to mimick their functionality you should create a mime and add them first.
 			
 		<tr>
 			<td>
-				array
+				$args
 			</td>
 			<td>
-				$args
+				array
 			</td>
 			<td>
 				The arguments that were passed to the method
@@ -77,10 +77,10 @@ so that future behavior can be modified based on the call.
 		
 		<tr>
 			<td>
-				string
+				$method
 			</td>
 			<td>
-				$method
+				string
 			</td>
 			<td>
 				The method we are trying to call
@@ -89,10 +89,10 @@ so that future behavior can be modified based on the call.
 			
 		<tr>
 			<td>
-				array
+				$args
 			</td>
 			<td>
-				$args
+				array
 			</td>
 			<td>
 				The arguments that were passed to the method
@@ -138,10 +138,10 @@ argument.
 		
 		<tr>
 			<td>
-				string
+				$property
 			</td>
 			<td>
-				$property
+				string
 			</td>
 			<td>
 				The property we are trying to get
@@ -170,10 +170,10 @@ Handle checking whether or not properties are set
 		
 		<tr>
 			<td>
-				string
+				$property
 			</td>
 			<td>
-				$property
+				string
 			</td>
 			<td>
 				The property to check if it is set
@@ -202,10 +202,10 @@ Handle setting properties
 		
 		<tr>
 			<td>
-				string
+				$property
 			</td>
 			<td>
-				$property
+				string
 			</td>
 			<td>
 				THe property to set
@@ -214,10 +214,10 @@ Handle setting properties
 			
 		<tr>
 			<td>
-				mixed
+				$value
 			</td>
 			<td>
-				$value
+				mixed
 			</td>
 			<td>
 				The value to set it to
@@ -246,10 +246,10 @@ Handle unsetting a property
 		
 		<tr>
 			<td>
-				string
+				$property
 			</td>
 			<td>
-				$property
+				string
 			</td>
 			<td>
 				The property to check if it is set

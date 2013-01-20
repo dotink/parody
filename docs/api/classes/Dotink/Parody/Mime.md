@@ -21,10 +21,10 @@ Create a new quip (mocked object) of a particular class to work on.
 		
 		<tr>
 			<td>
-				string
+				$class
 			</td>
 			<td>
-				$class
+				string
 			</td>
 			<td>
 				The class from which to build the object
@@ -53,10 +53,10 @@ Define a new quip (mocked class) to work on.
 		
 		<tr>
 			<td>
-				string
+				$class
 			</td>
 			<td>
-				$class
+				string
 			</td>
 			<td>
 				The class to define
@@ -85,10 +85,10 @@ Qualifies a class for the global namespace by ensuring it has a \ in front.
 		
 		<tr>
 			<td>
-				string
+				$class
 			</td>
 			<td>
-				$class
+				string
 			</td>
 			<td>
 				The class to qualify
@@ -117,10 +117,10 @@ Literally makes (evals) a class.
 		
 		<tr>
 			<td>
-				string
+				$class
 			</td>
 			<td>
-				$class
+				string
 			</td>
 			<td>
 				The class to make
@@ -153,10 +153,10 @@ Handle missing calls which, in short, means we should be looking for an extensio
 		
 		<tr>
 			<td>
-				string
+				$method
 			</td>
 			<td>
-				$method
+				string
 			</td>
 			<td>
 				The method we tried to call
@@ -165,10 +165,10 @@ Handle missing calls which, in short, means we should be looking for an extensio
 			
 		<tr>
 			<td>
-				array
+				$args
 			</td>
 			<td>
-				$args
+				array
 			</td>
 			<td>
 				The arguments we passed to it
@@ -196,13 +196,13 @@ Create a new Mime.
 	<tbody>
 		
 		<tr>
+			<td rowspan="3">
+				$target
+			</td>
 			<td>
 				string
 			</td>
-			<td rowspan="2">
-				$target
-			</td>
-			<td rowspan="2">
+			<td rowspan="3">
 				A class name or quip to work with.
 			</td>
 		</tr>
@@ -235,10 +235,10 @@ Tell an open method what to expect
 		
 		<tr>
 			<td>
-				mixed
+				$value
 			</td>
 			<td>
-				$value
+				mixed
 			</td>
 			<td>
 				The expected parameter value for the mocked method
@@ -272,10 +272,10 @@ exist.
 		
 		<tr>
 			<td>
-				string
+				$parent_class
 			</td>
 			<td>
-				$parent_class
+				string
 			</td>
 			<td>
 				The parent class to define
@@ -304,10 +304,10 @@ Define a value to give for the open method or property
 		
 		<tr>
 			<td>
-				mixed
+				$value
 			</td>
 			<td>
-				$value
+				mixed
 			</td>
 			<td>
 				The value to return for the open method or property
@@ -337,10 +337,10 @@ exist.
 		
 		<tr>
 			<td>
-				string
+				$interface
 			</td>
 			<td>
-				$interface
+				string
 			</td>
 			<td>
 				The interface to implement
@@ -369,10 +369,10 @@ Opens a method on the quip object
 		
 		<tr>
 			<td>
-				string
+				$method
 			</td>
 			<td>
-				$method
+				string
 			</td>
 			<td>
 				The name of the method to open
@@ -401,10 +401,10 @@ Opens a property on the quip object
 		
 		<tr>
 			<td>
-				string
+				$property
 			</td>
 			<td>
-				$property
+				string
 			</td>
 			<td>
 				The name of the property to open
@@ -438,10 +438,10 @@ is run it is removed from the stack automatically.
 		
 		<tr>
 			<td>
-				mixed
+				An
 			</td>
 			<td>
-				An
+				mixed
 			</td>
 			<td>
 				optional expected constructor parameter
@@ -450,10 +450,10 @@ is run it is removed from the stack automatically.
 			
 		<tr>
 			<td>
-				mixed
+				...
 			</td>
 			<td>
-				...
+				mixed
 			</td>
 			<td>
 				
@@ -462,10 +462,10 @@ is run it is removed from the stack automatically.
 			
 		<tr>
 			<td>
-				Closure
+				A
 			</td>
 			<td>
-				A
+				Closure
 			</td>
 			<td>
 				closure which will be passed the newly instantiated quip to work with
@@ -500,10 +500,10 @@ Tell the class we're defining to use a given trait and if it doesn't exist, crea
 		
 		<tr>
 			<td>
-				string
+				$trait
 			</td>
 			<td>
-				$trait
+				string
 			</td>
 			<td>
 				The trait to use
