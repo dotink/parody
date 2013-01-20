@@ -101,7 +101,11 @@ Create a new Mime.
 		
 		<tr>
 			<td>
+			</td>
+			<td>
 				object
+			</td>
+			<td>
 			</td>
 		</tr>
 				
