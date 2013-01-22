@@ -13,10 +13,10 @@
 	trait Iterator
 	{
 		/**
-		 * Gets the current value of the traversableValue
+		 * Get the current value
 		 *
 		 * @access public
-		 * @return mixed
+		 * @return mixed The current value of the set traversable value
 		 */
 		public function current()
 		{
@@ -24,10 +24,10 @@
 		}
 
 		/**
-		 * Gets the current key of the traversableValue
+		 * Gets the current key
 		 *
 		 * @access public
-		 * @return mixed
+		 * @return mixed The current key of the set traversable value
 		 */
 		public function key()
 		{
@@ -35,7 +35,7 @@
 		}
 
 		/**
-		 * Moves the current element of the traversableValue forward one
+		 * Moves the current element of the value forward one
 		 *
 		 * @access public
 		 * @return void
@@ -46,7 +46,7 @@
 		}
 
 		/**
-		 * Moved the current element of the traversableValue back to the beginning
+		 * Moved the current element of the value back to the beginning
 		 *
 		 * @access public
 		 * @return void
@@ -58,7 +58,7 @@
 
 
 		/**
-		 * Determine if the current key of an array is Valid
+		 * Determine if the current key of the vlaue is Valid
 		 *
 		 * @access public
 		 * @return boolean TRUE if the current key is valid, FALSE otherwise

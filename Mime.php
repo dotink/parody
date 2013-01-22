@@ -331,11 +331,11 @@
 		 * Tell an open method what to expect
 		 *
 		 * @access public
-		 * @param mixed $value The expected parameter value for the mocked method
+		 * @param mixed $arg The expected argument for the mocked method
 		 * @param ...
 		 * @return Mime The mime for method chaining
 		 */
-		public function expect($value)
+		public function expect()
 		{
 			if (!$this->openMethod) {
 				throw new \Exception(sprintf(
@@ -520,9 +520,9 @@
 		 * is run it is removed from the stack automatically.
 		 *
 		 * @access public
-		 * @param mixed An optional expected constructor parameter
+		 * @param mixed $arg An optional expected constructor argument
 		 * @param mixed ...
-		 * @param Closure A closure which will be passed the newly instantiated quip to work with
+		 * @param Closure $callback A callback to be run during construction of the Quip
 		 * @return Mime The mime for method chaining
 		 */
 		public function onNew()
