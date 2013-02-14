@@ -1,9 +1,9 @@
 # `Quip`
-##Quip is the replacement for your actual classes.  It will respond to methods and actions
+## Quip is the replacement for your actual classes.  It will respond to methods and actions
 configured by Mime.  Quips are verbal, Mimes are not.
 
 _Copyright (c) 2012 - 2013, Matthew J. Sahagian_.
-  _Please reference the LICENSE.txt file at the root of this distribution_
+_Please reference the LICENSE.txt file at the root of this distribution_
 #### Authors
 
 <table>
