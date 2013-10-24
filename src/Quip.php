@@ -7,7 +7,7 @@
 	 * @copyright Copyright (c) 2012 - 2013, Matthew J. Sahagian
 	 * @author Matthew J. Sahagian [mjs] <gent@dotink.org>
 	 *
-	 * @license Please reference the LICENSE.txt file at the root of this distribution
+	 * @license Please reference the LICENSE.md file at the root of this distribution
 	 *
 	 * @package Parody
 	 */
@@ -141,11 +141,8 @@
 			}
 
 			throw new \Exception(sprintf(
-				'The method %s was never mimicked with the provided expectations %s',
-				$method,
-				implode(',', array_map(function($val) {
-					return print_r($val, TRUE);
-				}, $quip['expectation']))
+				'The method %s was never mimicked with the provided expectations',
+				$method
 			));
 		}
 

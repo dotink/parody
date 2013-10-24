@@ -1,0 +1,8 @@
+language: php
+php:
+  - 5.4
+before_install:
+  - git clone --recursive git://github.com/dotink/Lab.git lab
+before_script:
+  - composer install
+script: php ./lab/lab.php

@@ -6,7 +6,7 @@
 	 * @copyright Copyright (c) 2012 - 2013, Matthew J. Sahagian
 	 * @author Matthew J. Sahagian [mjs] <gent@dotink.org>
 	 *
-	 * @license Please reference the LICENSE.txt file at the root of this distribution
+	 * @license Please reference the LICENSE.md file at the root of this distribution
 	 *
 	 * @package Parody
 	 */
