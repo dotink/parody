@@ -481,7 +481,10 @@
 			// a method on it.
 			//
 
-			$this->quip->methods[$method] = array();
+			if (!isset($this->quip->methods[$method])) {
+				$this->quip->methods[$method] = array();
+			}
+
 			$this->openMethod             = $method;
 
 			return $this;

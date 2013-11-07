@@ -131,8 +131,8 @@
 		public function __call($method, $args)
 		{
 			if (isset($this->methods[$method])) {
-				foreach ($this->methods[$method] as $quip) {
-					if ($args == $quip['expectation']) {
+				foreach ($this->methods[$method] as $i => $quip) {
+					if ($args === $quip['expectation']) {
 						return ($quip['value'] instanceof \Closure)
 							? $quip['value']($this->mime)
 							: $quip['value'];
@@ -141,8 +141,11 @@
 			}
 
 			throw new \Exception(sprintf(
-				'The method %s was never mimicked with the provide expectations',
-				$method
+				'The method %s was never mimicked with the provided expectations %s',
+				$method,
+				implode(',', array_map(function($val) {
+					return print_r($val, TRUE);
+				}, $quip['expectation']))
 			));
 		}
 
