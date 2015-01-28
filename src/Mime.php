@@ -6,7 +6,7 @@
 	 * @copyright Copyright (c) 2012 - 2013, Matthew J. Sahagian
 	 * @author Matthew J. Sahagian [mjs] <gent@dotink.org>
 	 *
-	 * @license Please reference the LICENSE.txt file at the root of this distribution
+	 * @license Please reference the LICENSE.md file at the root of this distribution
 	 *
 	 * @package Parody
 	 */
@@ -413,18 +413,19 @@
 		{
 			foreach (func_get_args() as $interface) {
 
+				$fqin = ltrim($interface, '\\');
 				$path = implode(DIRECTORY_SEPARATOR, [
 					__DIR__,
 					self::INTERFACE_EXTENSIONS_DIR,
 					str_replace('\\', DIRECTORY_SEPARATOR, $interface) . '.php'
 				]);
 
-				if (isset(self::$registry[$interface]) || file_exists($path)) {
-					if (!isset(self::$registry[$interface])) {
+				if (isset(self::$registry[$fqin]) || file_exists($path)) {
+					if (!isset(self::$registry[$fqin])) {
 						$existing_traits            = get_declared_traits();
 						$extension                  = include($path);
 						self::$extensions           = array_merge(self::$extensions, $extension);
-						self::$registry[$interface] = array_diff(
+						self::$registry[$fqin] = array_diff(
 							get_declared_traits(),
 							$existing_traits
 						);
@@ -444,15 +445,24 @@
 				// qualify the namespace until below.
 				//
 
-				if (!interface_exists($interface)) {
-					eval(call_user_func(function() use ($interface) {
+
+				if (!interface_exists($interface, FALSE)) {
+
+					$parts      = explode('\\', $fqin);
+					$interface  = array_pop($parts);
+					$ns         = implode('\\', $parts);
+
+					eval(call_user_func(function() use ($ns, $interface) {
 						ob_start() ?>
-							interface <?= $interface ?> {}
+							namespace <?= $ns ?>
+							{
+								interface <?= $interface ?> {}
+							}
 						<?php return ob_get_clean();
 					}));
 				}
 
-				self::$interfaces[$this->class][] = self::qualify($interface);
+				self::$interfaces[$this->class][] = self::qualify($fqin);
 			}
 
 			return $this;
@@ -481,10 +491,7 @@
 			// a method on it.
 			//
 
-			if (!isset($this->quip->methods[$method])) {
-				$this->quip->methods[$method] = array();
-			}
-
+			$this->quip->methods[$method] = array();
 			$this->openMethod             = $method;
 
 			return $this;
