@@ -13,7 +13,6 @@
 	class Mime extends Quip
 	{
 		const INTERFACE_EXTENSIONS_DIR = 'interfaces';
-		const DS = DIRECTORY_SEPARATOR;
 
 
 		/**
@@ -112,28 +111,23 @@
 
 
 		/**
-		 * Allow us to call certain method statically, specifically create
+		 * Create a new quip (mocked object) of a particular class to work on.
 		 *
-		 * @param string $method The method that was called
-		 * @param array $args The arguments passed to the method
-		 * @return mixed The return value for the called method
+		 * @static
+		 * @access public
+		 * @param string $class The class from which to build the object
+		 * @return Mime The mime object for developing the object.
 		 */
-		static public function __callStatic($method, $args)
+		static public function create($class)
 		{
-			if ($method == 'create') {
-				if (!count($args)) {
-					throw new \Exception(sprintf(
-						'Cannot call static create() without a class argument'
-					));
-				}
-
-				return new self(self::create($args[0]));
-
-			} else {
-				throw new \Exception(sprintf(
-					'Call to unsupported method %s on %s', $method, __CLASS__
-				));
+			if (!class_exists($class, FALSE)) {
+				self::make($class);
 			}
+
+			$class = self::qualify($class);
+			$quip  = new $class();
+
+			return new self($quip);;
 		}
 
 
@@ -148,32 +142,6 @@
 		static public function define($class)
 		{
 			return new self($class);
-		}
-
-
-		/**
-		 * Create a new quip (mocked object) of a particular class to work on.
-		 *
-		 * @static
-		 * @access public
-		 * @param string $class The class from which to build the object
-		 * @param string $overload_static Whether or not the quip should overload static calls
-		 * @return Mime The mime object for developing the object.
-		 */
-		static private function create($class, $overload_static = FALSE)
-		{
-			if (!class_exists($class, FALSE)) {
-				self::make($class);
-			}
-
-			$class = self::qualify($class);
-			$quip  = new $class();
-
-			if (!isset(self::$objects[$class]) || $overload_static) {
-				self::$objects[$class] = $quip;
-			}
-
-			return $quip;
 		}
 
 
@@ -241,7 +209,7 @@
 				: array();
 
 			//
-			// Collect traits
+			// Collect Trait
 			//
 
 			$traits = isset(self::$traits[$fqcn])
@@ -280,6 +248,22 @@
 
 
 		/**
+		 * Qualifies a class for the global namespace by ensuring it has a \ in front.
+		 *
+		 * @static
+		 * @access private
+		 * @param string $class The class to qualify
+		 * @return string The qualfied class
+		 */
+		static protected function qualify($class)
+		{
+			return $class[0] != '\\'
+				? '\\' . $class
+				: $class;
+		}
+
+
+		/**
 		 * Create a new Mime.
 		 *
 		 * @access public
@@ -289,9 +273,23 @@
 		public function __construct($target = NULL)
 		{
 			if (is_object($target)) {
-				$this->resolve($target);
+				if (!is_subclass_of($target, get_parent_class(__CLASS__))) {
+					throw new \Exception(sprintf(
+						'Mime cannot work with non-Quip object of class %s',
+						get_class($target)
+					));
+				}
+
+				$this->class      = get_class($target);
+				$this->quip       = $target;
+				$this->quip->mime = $this;
+
+				if (!isset(self::$objects[$this->class])) {
+					self::$objects[$this->class] = $target;
+				}
+
 			} else {
-				$this->class = self::qualify($target);
+				$this->class = $target;
 			}
 		}
 
@@ -306,12 +304,11 @@
 		 */
 		public function __call($method, $args)
 		{
-			if ($method == 'create') {
-				return new self(self::create($this->class));
-			}
-
 			if (!isset(self::$extensions[$method])) {
- 				throw new \Exception(sprintf('Unknown extension %s', $method));
+ 				throw new \Exception(sprintf(
+ 					'Unknown extension %s',
+ 					$method
+ 				));
 			}
 
 			if (!(self::$extensions[$method] instanceof \Closure)) {
@@ -329,19 +326,6 @@
 
 			return $this;
 		}
-
-
-		/**
-		 * Get the quip
-		 *
-		 * @access public
-		 * @return Quip The quip
-		 */
-		public function __invoke()
-		{
-			return $this->quip;
-		}
-
 
 		/**
 		 * Tell an open method what to expect
@@ -430,8 +414,11 @@
 			foreach (func_get_args() as $interface) {
 
 				$fqin = ltrim($interface, '\\');
-				$file = str_replace('\\', self::DS, $fqin) . '.php';
-				$path = implode(self::DS, [__DIR__, self::INTERFACE_EXTENSIONS_DIR, $file]);
+				$path = implode(DIRECTORY_SEPARATOR, [
+					__DIR__,
+					self::INTERFACE_EXTENSIONS_DIR,
+					str_replace('\\', DIRECTORY_SEPARATOR, $interface) . '.php'
+				]);
 
 				if (isset(self::$registry[$fqin]) || file_exists($path)) {
 					if (!isset(self::$registry[$fqin])) {
@@ -458,15 +445,9 @@
 				// qualify the namespace until below.
 				//
 
-<<<<<<< HEAD
 
 				if (!interface_exists($interface, FALSE)) {
 
-=======
-				if (!interface_exists($interface)) {
-
-					$fqin       = ltrim('\\', $fqin);
->>>>>>> Bunch of API cleanup and niceness added
 					$parts      = explode('\\', $fqin);
 					$interface  = array_pop($parts);
 					$ns         = implode('\\', $parts);
@@ -481,11 +462,7 @@
 					}));
 				}
 
-<<<<<<< HEAD
 				self::$interfaces[$this->class][] = self::qualify($fqin);
-=======
-				self::$interfaces[$this->class][] = self::qualify($ns . '\\' . $interface);
->>>>>>> Bunch of API cleanup and niceness added
 			}
 
 			return $this;
@@ -501,14 +478,11 @@
 		 */
 		public function onCall($method)
 		{
-			if (!$this->quip) {
-				$this->resolve(self::create($this->class, TRUE));
-			}
-
-			if ($this->openMethod || $this->openProperty) {
+			if ($this->quip && ($this->openMethod || $this->openProperty)) {
 				throw new \Exception(sprintf(
 					'Cannot open method %s without first give()-ing a return for %s',
-					$method, $this->openMethod ?: $this->openProperty
+					$method,
+					$this->openMethod ?: $this->openProperty
 				));
 			}
 
@@ -533,14 +507,11 @@
 		 */
 		public function onGet($property)
 		{
-			if (!$this->quip) {
-				$this->resolve(self::create($this->class, TRUE));
-			}
-
-			if ($this->openMethod || $this->openProperty) {
+			if ($this->quip && ($this->openMethod || $this->openProperty)) {
 				throw new \Exception(sprintf(
 					'Cannot mimick property %s without first give()-ing a return for %s',
-					$property, $this->openMethod ?: $this->openProperty
+					$property,
+					$this->openMethod ?: $this->openProperty
 				));
 			}
 
@@ -588,22 +559,8 @@
 		 * @access public
 		 * @return Quip The quip object, whose class will actually be whatever class you're mocking
 		 */
-		public function resolve($target)
+		public function resolve()
 		{
-			if ($target) {
-
-				if (!is_subclass_of($target, get_parent_class(__CLASS__))) {
-					throw new \Exception(sprintf(
-						'Constructor mocking not supported on non-Quip object of class %s',
-						get_class($target)
-					));
-				}
-
-				$this->class      = self::qualify(get_class($target));
-				$this->quip       = $target;
-				$this->quip->mime = $this;
-			}
-
 			return $this->quip;
 		}
 
@@ -620,26 +577,15 @@
 		{
 			foreach (func_get_args() as $trait) {
 
-				$fctn   = ltrim('\\', $trait);
-				$parts  = explode('\\', $fqtn);
-				$class  = array_pop($parts);
-				$ns     = implode('\\', $parts);
-
-
 				//
 				// We want to create the trait if it doesn't exist yet.  We don't want to
 				// qualify the namespace until below.
 				//
 
 				if (!trait_exists($trait)) {
-					eval(call_user_func(function() use ($ns, $trait) {
+					eval(call_user_func(function() use ($trait) {
 						ob_start() ?>
-							namespace <?= $ns ?>
-							{
-								trait <?= $trait ?> {
-
-								}
-							}
+							trait <?= $trait ?> {}
 						<?php return ob_get_clean();
 					}));
 				}
