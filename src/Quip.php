@@ -137,8 +137,8 @@
 		public function __call($method, $args)
 		{
 			if (isset($this->methods[$method])) {
-				foreach ($this->methods[$method] as $i => $quip) {
-					if ($args === $quip['expectation']) {
+				foreach ($this->methods[$method] as $quip) {
+					if ($args == $quip['expectation']) {
 						return ($quip['value'] instanceof \Closure)
 							? $quip['value']($this->mime)
 							: $quip['value'];
