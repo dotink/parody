@@ -83,7 +83,7 @@
 		 */
 		static public function __callStatic($method, $args)
 		{
-			$called_class = get_called_class();
+			$called_class = self::qualify(get_called_class());
 			$object       = self::$objects[$called_class];
 
 			return call_user_func_array([$object, $method], $args);
@@ -102,15 +102,21 @@
 		 */
 		public function __construct()
 		{
-			$class = get_class($this);
+			$class = self::qualify(get_class($this));
 			$args  = func_get_args();
 
 			if (isset(self::$factories[$class])) {
 				foreach (self::$factories[$class] as $i => $quip) {
 					if ($args == $quip['expectation']) {
-						return call_user_func($quip['factory'], new Mime($this));
+						call_user_func($quip['factory'], new Mime($this));
+						return;
 					}
 				}
+
+				throw new \Exception(sprintf(
+					'The constructor for %s was never mimicked with the provided expectations: %s',
+					$class, print_r($args, TRUE)
+				));
 			}
 		}
 
@@ -138,12 +144,17 @@
 							: $quip['value'];
 					}
 				}
-			}
 
-			throw new \Exception(sprintf(
-				'The method %s was never mimicked with the provided expectations',
-				$method
-			));
+				throw new \Exception(sprintf(
+					'The method %s was never mimicked with the provided expectations: %s',
+					$method, print_r($args, TRUE)
+				));
+
+			} else {
+				throw new \Exception(sprintf(
+					'The method %s was never mimicked', $method
+				));
+			}
 		}
 
 
@@ -219,6 +230,22 @@
 			throw new \Exception(sprintf(
 				'Setting properties is not yet mimicked'
 			));
+		}
+
+
+		/**
+		 * Qualifies a class for the global namespace by ensuring it has a \ in front.
+		 *
+		 * @static
+		 * @access private
+		 * @param string $class The class to qualify
+		 * @return string The qualfied class
+		 */
+		static protected function qualify($class)
+		{
+			return $class[0] != '\\'
+				? '\\' . $class
+				: $class;
 		}
 	}
 }

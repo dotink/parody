@@ -2,7 +2,7 @@
 	"name": "dotink/parody",
 	"description": "A simple PHP testing library for defining and crafting mock classes and objects.",
 	"type": "library",
-	"keywords": ["testing","mock"],
+	"keywords": ["testing", "mock"],
 	"license": "AGPL-3.0",
 	"authors": [
 		{
