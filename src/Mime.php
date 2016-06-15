@@ -459,7 +459,7 @@
 
 				if (!interface_exists($interface)) {
 
-					$fqin       = ltrim('\\', $fqin);
+					$fqin       = ltrim($interface, '\\');
 					$parts      = explode('\\', $fqin);
 					$interface  = array_pop($parts);
 					$ns         = implode('\\', $parts);
@@ -609,7 +609,7 @@
 		{
 			foreach (func_get_args() as $trait) {
 
-				$fctn   = ltrim('\\', $trait);
+				$fqtn   = ltrim($trait, '\\');
 				$parts  = explode('\\', $fqtn);
 				$class  = array_pop($parts);
 				$ns     = implode('\\', $parts);
