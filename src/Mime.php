@@ -192,7 +192,8 @@
 			// class name.
 			//
 
-			$fqcn = ltrim($class, '\\');
+			$fqcn  = ltrim($class, '\\');
+			$class = self::qualify($class);
 
 			//
 			// Determine the appropriate parent
@@ -201,6 +202,24 @@
 			$parent = !isset(self::$parents[$fqcn])
 				? self::qualify(__NAMESPACE__ . '\Quip')
 				: self::$parents[$fqcn];
+
+
+			//
+			// Collect interfaces
+			//
+
+			$interfaces = isset(self::$interfaces[$class])
+				? self::$interfaces[$class]
+				: array();
+
+			//
+			// Collect traits
+			//
+
+			$traits = isset(self::$traits[$class])
+				? self::$traits[$class]
+				: array();
+
 
 			//
 			// Break out our namespace and class
@@ -211,42 +230,8 @@
 			$ns     = implode('\\', $parts);
 
 			if (!class_exists($parent, FALSE)) {
-				self::make($parent);
-
-			} else {
-				eval(call_user_func(function() use ($ns, $class, $parent) {
-					ob_start() ?>
-						namespace <?= $ns ?>
-						{
-							class <?= $class ?>
-
-							<?php if ($parent) { ?>
-								extends <?= $parent ?>
-							<?php } ?>
-
-							{}
-						}
-					<?php return ob_get_clean();
-				}));
-
-				return;
+				return self::make($parent);
 			}
-
-			//
-			// Collect interfaces
-			//
-
-			$interfaces = isset(self::$interfaces[$fqcn])
-				? self::$interfaces[$fqcn]
-				: array();
-
-			//
-			// Collect traits
-			//
-
-			$traits = isset(self::$traits[$fqcn])
-				? self::$traits[$fqcn]
-				: array();
 
 			//
 			// Create a class
