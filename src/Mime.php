@@ -442,7 +442,7 @@
 				// qualify the namespace until below.
 				//
 
-				if (!interface_exists($interface)) {
+				if (!interface_exists($interface, FALSE)) {
 
 					$fqin       = ltrim($interface, '\\');
 					$parts      = explode('\\', $fqin);
